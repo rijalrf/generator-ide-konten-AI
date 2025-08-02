@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { Category, ContentType, PlatformFormat, Script } from '../types';
 
@@ -114,5 +115,31 @@ export const generateScripts = async (category: Category, contentType: ContentTy
         throw new Error("Gagal mem-parsing respons dari AI. Coba lagi.");
     }
     throw new Error("Gagal menghasilkan skrip. Silakan coba lagi.");
+  }
+};
+
+export const generateImage = async (prompt: string, platformFormat: PlatformFormat): Promise<string> => {
+  const aspectRatio = platformFormat === PlatformFormat.Short ? '9:16' : '16:9';
+  const fullPrompt = `${prompt}. Penting: Gambar wajib bergaya minimalis hitam dan putih. Latar belakang harus putih polos sepenuhnya, tanpa warna, bayangan, atau gradien.`;
+
+  try {
+    const response = await ai.models.generateImages({
+      model: 'imagen-3.0-generate-002',
+      prompt: fullPrompt,
+      config: {
+        numberOfImages: 1,
+        outputMimeType: 'image/jpeg',
+        aspectRatio: aspectRatio,
+      },
+    });
+
+    if (response.generatedImages && response.generatedImages.length > 0) {
+      return response.generatedImages[0].image.imageBytes;
+    } else {
+      throw new Error("AI tidak mengembalikan gambar.");
+    }
+  } catch (error) {
+    console.error("Error generating image:", error);
+    throw new Error("Gagal membuat gambar. Silakan coba lagi.");
   }
 };

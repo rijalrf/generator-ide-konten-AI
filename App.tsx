@@ -98,7 +98,7 @@ const App: React.FC = () => {
 
         {isLoading && <LoadingSpinner />}
 
-        {!isLoading && scripts.length > 0 && <ScriptDisplay scripts={scripts} />}
+        {!isLoading && scripts.length > 0 && <ScriptDisplay scripts={scripts} platformFormat={platformFormat} />}
 
         {!isLoading && scripts.length === 0 && !error && (
           <div className="text-center py-16 px-6 bg-gray-800/30 border border-dashed border-gray-700 rounded-xl mt-8">

@@ -1,5 +1,6 @@
 {
   "name": "Generator Ide Konten AI",
   "description": "Sebuah aplikasi web untuk menghasilkan ide konten dan skrip menggunakan AI, dengan kategori spesifik dan prompt gambar bergaya stickman.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "prompt": ""
 }
